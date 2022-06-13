@@ -23,14 +23,16 @@
         <legend class="border-bottom mb-4"> Join Today</legend>
         {{form|crispy}}
       </fieldset>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit"> Sign Up</button>
+
+      <div class="form-group p-2">
+        <button class="btn btn-outline-primary" type="submit"> Sign Up</button>
       </div>
   
     </form>
+
     <div class="border-top pt-3">
       <small class="text-muted">
-        Already have an account? <a class="ml-2" href="">Sign In</a>
+        Already have an account? <a class="ml-2" href="{%url 'login' %}">Sign In</a>
   
       </small>
   
