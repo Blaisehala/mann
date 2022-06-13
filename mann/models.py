@@ -11,7 +11,7 @@ class Profile (models.Model):
   
   
 class Project (models.Model):
-  image = models.ForeignKey
+  image = models.ImageField(default='default.jpg')
   title = models.CharField(max_length=100, null=True, blank=True)
 
   description = models.TextField(max_length=300, null=True)
