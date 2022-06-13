@@ -1,15 +1,21 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import UserRegisterForm, 
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm,
+from .forms import UserRegisterForm
+from mann.models import Project
 
 # Create your views here.
 
-def register (request):
-  form = UserCreationForm(request.POST)
-  return render(request,'users/register.html', {'form': form})
+def home(request):
+  context= {
+    'projects': Project.objects.all()
+  }
+  return render(request, 'users/base.html', context)
 
-   
+def about(request):
+  return render(request, 'users/about.html', {'title': 'About'})
+
+
+
 def register(request):
   if request.method == 'POST':
     form = UserRegisterForm(request.POST)
