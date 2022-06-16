@@ -1,1 +1,1 @@
-web: gunicorn mann.wsgi
+web: gunicorn mann.wsgi --log-file -
