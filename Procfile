@@ -1,1 +1,1 @@
-web: gunicorn vAwwards.wsgi
+web:gunicorn vAwwards.wsgi
