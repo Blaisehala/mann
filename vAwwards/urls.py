@@ -20,11 +20,18 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from mann import views as mann_views 
 
-
+ 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path ('home/', mann_views.home, name='home' ),
+
+    path ('landing/', mann_views.landing, name='landing' ),
+
+
+
     path ('register/', mann_views.register, name='register' ),
+
 
     path ('profile/', mann_views.profile, name='profile' ),
 
@@ -34,7 +41,10 @@ urlpatterns = [
 
 
     path ('', include('mann.urls')),
+
+    path ('tinymce/', include('tinymce.urls')),
 ]
+
 
 
 

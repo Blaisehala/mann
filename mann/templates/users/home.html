@@ -1,18 +1,106 @@
+<div class="banner text-center">
+  <div class="cover">
+    <div class="container image">
+      
+      
+      <form class="form" role="search" action="">
+
+        <div class="input-group text-center">
+          <input type="text" class="form-control" placeholder=" Search by category" name="image">
+          <div class="input-group-btn">
+            <button class="btn btn-dark" type="submit"><i class="glyphicon glyphicon-search"></i>search</button>
+          </div>
+
+        </div>
+
+
+      
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
 {% extends "users/base.html"%}
 
 {% block content %}
 
 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Designs</title>
 </head>
+
 <body>
-  <h1>Am Home</h1>
+
+
+
+
+  
+  <div class="container">
+    <div class="row">
+      {% for project in project %}
+      <div class="col-md-6">
+      
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{{project.image.url}}" alt="{{project.name}}">
+          <div class="card-body">
+            <h5 class="card-title">{{project.title}}</h5>
+            <hr>
+            <div class="d-flex text-muted border-bottom py-2">
+              <!-- user metadata -->
+              <img class="image-fluid rounded-circle account-img-sidebar" src="{{project.user.profile.image.url}}"
+                alt="{{post.user}} profile picture" height="25px" width="25px">
+              <div class="pb-3 mb-0 small lh-sm w-100">
+                <div class="d-flex">
+                  <!-- <a href="{% url 'profile' %}"> -->
+                    <strong class="text-gray-dark"> By:{{project.user}}</strong>
+                  </a>
+                </div>
+                <small><p class="card-title">{{project.created|timesince}} ago</p></small>
+              </div>
+            </div>
+         
+            
+            <a href="{% url 'rate' project.id %}"><button type="button" class="btn btn-primary">More..</button></a>
+          </div>
+        </div>
+
+
+      </div>
+
+
+      {% endfor %}
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>
 
 {% endblock content %}
