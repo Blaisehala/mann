@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Lobster&family=Montserrat&family=Open+Sans:ital,wght@1,300&family=Rowdies&display=swap');
+
+
 body {
   background: #fafafa;
   color: #333333;
@@ -13,7 +16,17 @@ ul {
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #25a6ff;
+  font-size: 15px;
+  color: white;
+  font-family: "Fredoka One", Sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0px;
+  text-shadow: 4px 10px 2px rgb(53 66 109 / 15%);
+  display: flex;
+  justify-content: space-around;
 }
 
 .site-header .navbar-nav .nav-link {

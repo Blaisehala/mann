@@ -27,4 +27,22 @@
 
 </div>
 
+<hr>
+{% for project in project %}
+<div class="col-md-4" id="">
+  <div class="card mb-4">
+    <h5 class="card-title text-center"><b>Title: </b>{{project.title}}</h5>
+    <img src="{{ project.image.url }}" alt="" width="400" />
+  </div>
+  </p>
+</div>
+{% empty %}
+<div class="row">
+  <div class="text-center" role="alert">
+    <p> No Posts Yet! </p>
+  </div>
+</div>
+</div>
+</div>
+{% endfor %}
 {% endblock content %}

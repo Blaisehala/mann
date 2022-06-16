@@ -26,7 +26,7 @@ urlpatterns = [
 
     path ('home/', mann_views.home, name='home' ),
 
-    path ('landing/', mann_views.landing, name='landing' ),
+    # path ('landing/', mann_views.landing, name='landing' ),
 
 
 
