@@ -58,4 +58,4 @@ class Project (models.Model):
 class vote(models.Model):
    project = models.ForeignKey(Project, on_delete=models.DO_NOTHING,null=True)
    choice_text = models.CharField(max_length=200, null=True)
-   your_vote = models.IntegerField()
+   your_vote = models.IntegerField(max_length=20)
