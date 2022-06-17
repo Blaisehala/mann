@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 <!doctype html>
 <html lang="en">
 
@@ -29,7 +31,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'profile' %}">Profile</a>
       </li>
-      
+
     </ul>
   </div>
 </nav>
@@ -71,89 +73,70 @@
 
     </div>
   </div>
+  <br>
+  <h1 class="votees  text-center">Vote Site</h1>
+
   <div class="container">
-    <table class="table">
-      <h5>User Votes</h5>
-      <thead>
-        <tr>
-          <th scope="col">User</th>
-          <th scope="col">design</th>
-          <th scope="col">usability</th>
-          <th scope="col">content</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"><small>Blaise</small></th>
-          <td>5.0</td>
-          <td>7.0</td>
-          <td>4.0</td>
-        </tr>
-        <tr>
-          <th scope="row"><small>Bambi</small></th>
-          <td>8.0</td>
-          <td>3.0</td>
-          <td>4.0</td>
-        </tr>
-        <tr>
-          <th scope="row"><small>OttoVon</small></th>
-          <td>5.0</td>
-          <td>4.0</td>
-          <td>4.0</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-      Vote
-    </button>
-
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Rate out of 10</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <form action="" method="post">
-              {% csrf_token %}
-              <div class="mb-3">
-                  <label for="Design">Design</label>
-                  <input type="number" class="form-control" name="design" min="0" max="10" value="0">
-              </div>
-              <div class="mb-3">
-                  <label for="Usability">Usability</label>
-                  <input type="number" class="form-control" name="usability" min="0" max="10" value="0">
-              </div>
-              <div class="mb-3">
-                  <label for="Content">Content</label>
-                  <input type="number" class="form-control" id="Content" min="0" max="10" value="0" name="content">
-              </div>
-              <div class="modal-footer">
-                  <button type="submit" class="btn-outline-primary">Save</button>
-              </div>
-          </form>
-          </div>
-
-         
-
-        </div>
+    <div class="col-md-5 border border-1 p-3 >
+      <div class=" row">
+      
+      <div class="col-md-8">
+        <h3 class="text-center">Rating</h3>
+        {% for rating in project.ratings.all %}
+        {% if forloop.counter is project.ratings.all.count %}
+        <a class="btn btn-outline-info">
+          <h5>{{ rating.score }}</h5>
+          <span class="sc"><strong>Average Score</strong></span>
+        </a>
+        <a class="btn btn-outline-success">
+          <h5>{{ rating.design_average }}</h5>
+          <span class="sc">Design Average</span>
+        </a>
+        <a class="btn btn-outline-primary" id="u">
+          <h5>{{ rating.usability_average }}</h5>
+          <span class="sc">Usability Average</span>
+        </a>
+        <a class="btn btn-outline-danger" id="c">
+          <h5>{{ rating.content_average }}</h5>
+          <span class="sc">Content Average</span>
+        </a>
+        {% endif %}
+        {% endfor %}
       </div>
+      <div class="col-md-2"></div>
     </div>
+
+    <div class="content-section">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4"></legend>
+          {{form|crispy}}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit"> Vote </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
 
 
   </div>
 
+  <style>
+    .votees {
 
-
-
+      font-size: 40px;
+      color: blue;
+      font-family: "Fredoka One", Sans-serif;
+      /* font-size: 20px; */
+      font-weight: 400;
+      line-height: 48px;
+      letter-spacing: 0px;
+      text-shadow: 4px 10px 2px rgb(53 66 109 / 15%);
+    }
+  </style>
 
   <!-- Optional JavaScript; choose one of the two! -->
 

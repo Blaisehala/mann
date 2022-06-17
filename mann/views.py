@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm,NewProjectForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm,NewProjectForm, RatingForm
 from mann.models import Project
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import  Project,Profile
 from .serializer import ProfileSerializer,ProjectSerializer
+from .models import *
+from django.http import  HttpResponseRedirect
 
 
 
@@ -117,17 +119,17 @@ def new_post(request):
 
 
 
-@login_required(login_url='login')
-def rate(request, id):
+# @login_required(login_url='login')
+# def rate(request, id):
 
-    # form = RateProjectForm()
-    project = Project.objects.get(id=id)
+#     # form = RateProjectForm()
+#     project = Project.objects.get(id=id)
     
-    context = {
-        'project': project,
-        # 'form': form
-    }
-    return render(request, 'users/rate.html', context)
+#     context = {
+#         'project': project,
+#         # 'form': form
+#     }
+#     return render(request, 'users/rate.html', context)
 
 
 
@@ -144,3 +146,47 @@ class ProfileList(APIView):
     all_profile = Profile.objects.all()
     serializers = ProfileSerializer(all_profile, many=True)
     return Response(serializers.data)
+
+
+
+
+@login_required
+def project(request,id):
+    form = RatingForm()
+    project = Project.objects.filter(id=id).first()
+    ratings = Rating.objects.filter(user=request.user,id=id).first()
+    rating_status = None
+    if rating_status is None:
+        rating_status = False
+    else:
+        rating_status = True    
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = request.user
+            rate.project = project
+            rate.save()
+            project_ratings = Rating.objects.filter(project=project)
+            design_ratings = [d.design for d in project_ratings]
+            design_average = sum(design_ratings) / len(design_ratings)
+            usability_ratings = [us.usability for us in project_ratings] 
+            usability_average = sum(usability_ratings) / len(usability_ratings)
+            content_ratings = [content.content for content in project_ratings]
+            content_average = sum(content_ratings) / len(content_ratings)
+            score = (design_average + usability_average + content_average) / 3
+
+            print(score)
+
+            rate.design_average = round(design_average, 2)
+            rate.usability_average = round(usability_average, 2)
+            rate.content_average = round(content_average, 2)
+            rate.score = round(score, 2)
+            rate.save()
+
+
+
+            return HttpResponseRedirect(request.path_info)   
+    context = {'project':project, 'ratings':ratings,'form':form,'rating_status':rating_status}   
+
+    return render(request, 'users/project.html',context)
