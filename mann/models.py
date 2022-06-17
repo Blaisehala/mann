@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 from ckeditor.fields import RichTextField
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
 class Profile(models.Model):
   user= models.OneToOneField(User, on_delete=models.CASCADE)
-  image= models.ImageField(default='default.jpg', upload_to='profile_pics')
+  image= CloudinaryField('image',default='default.jpg')
   
   
   def __str__(self):
@@ -32,7 +33,7 @@ class Profile(models.Model):
 
 class Project (models.Model):
   title = models.CharField(max_length=100, null=True, blank=True)
-  image = models.ImageField(default='default.jpg')
+  image = CloudinaryField('image', default='default.jpg')
   link = models.URLField(null=True, blank=True)
   description = RichTextField(null=True, blank=True)
   created = models.DateTimeField(auto_now=True)

@@ -15,6 +15,9 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'cloudinary',
     'rest_framework',
     'bootstrap4',
     'ckeditor',
@@ -132,6 +136,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+cloudinary.config( 
+    cloud_name='dnitcpr5j',
+    api_key='626861449813592',
+    api_secret='NpzaDec5IN6mLwumwyjEHtdKJfE'
+  
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
