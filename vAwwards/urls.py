@@ -24,11 +24,11 @@ from mann import views as mann_views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path ('home/', mann_views.home, name='home' ),
+    path ('', mann_views.home, name='home' ),
 
-    # path ('landing/', mann_views.landing, name='landing' ),
+    
 
-
+    
 
     path ('register/', mann_views.register, name='register' ),
 
